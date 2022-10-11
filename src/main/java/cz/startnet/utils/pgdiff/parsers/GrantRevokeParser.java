@@ -272,9 +272,10 @@ public class GrantRevokeParser {
                 final PgSequence sequence = schema.getSequence(objectName);
 
                 if (sequence == null) {
-                    throw new RuntimeException(MessageFormat.format(
-                            Resources.getString("CannotFindSequence"), name,
-                            statement));
+                    return;
+//                    throw new RuntimeException(MessageFormat.format(
+//                            Resources.getString("CannotFindSequence"), name,
+//                            statement));
                 }
 
                 for (String roleName : roles) {
