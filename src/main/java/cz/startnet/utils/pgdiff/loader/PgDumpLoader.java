@@ -5,6 +5,8 @@
  */
 package cz.startnet.utils.pgdiff.loader;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import cz.startnet.utils.pgdiff.Resources;
 import cz.startnet.utils.pgdiff.parsers.AlterSequenceParser;
 import cz.startnet.utils.pgdiff.parsers.AlterRelationParser;
@@ -23,6 +25,7 @@ import cz.startnet.utils.pgdiff.parsers.CreatePolicyParser;
 import cz.startnet.utils.pgdiff.parsers.CreateProcedureParser;
 import cz.startnet.utils.pgdiff.parsers.CreateRuleParser;
 import cz.startnet.utils.pgdiff.schema.PgDatabase;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,6 +43,7 @@ import java.util.regex.Pattern;
  * @author fordfrog
  */
 public class PgDumpLoader { //NOPMD
+    private static final Log log = LogFactory.get();
 
     /**
      * Pattern for testing whether it is CREATE SCHEMA statement.
@@ -404,6 +408,10 @@ public class PgDumpLoader { //NOPMD
      * @param sbStatement string builder containing statement
      */
     private static void stripComment(final StringBuilder sbStatement) {
+        if(sbStatement==null||sbStatement.toString().trim().length()==0){
+            sbStatement.setLength(0);
+            return;
+        }
         int pos = sbStatement.indexOf("--");
 
         while (pos >= 0) {
