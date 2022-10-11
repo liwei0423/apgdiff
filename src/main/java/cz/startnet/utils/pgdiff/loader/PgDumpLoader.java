@@ -363,7 +363,7 @@ public class PgDumpLoader { //NOPMD
                 }
 
                 if (newLine == null) {
-                    if (sbStatement.toString().trim().length() == 0) {
+                    if (sbStatement.toString().trim().length() == 0||sbStatement.toString().trim().equals("\\.")) {
                         return null;
                     } else {
                         throw new RuntimeException(MessageFormat.format(
